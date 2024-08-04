@@ -1,0 +1,16 @@
+dist
+node_modules
+public.gitignore.husky.vscode.yarn.yarnrc.yml
+README.md
+yarn.lock
+index.html
+package.json
+package-lock.json
+tsconfig.json
+tsconfig.node.json
+tsconfig.app.json
+.gitignore
+.prettierignore
+.prettierrc.js
+.husky
+.eslintignore
