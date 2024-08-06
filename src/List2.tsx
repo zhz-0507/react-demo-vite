@@ -1,5 +1,7 @@
 import { FC, useState } from 'react'
 
+import { produce } from 'immer'
+
 import QuestionCard from './components/QuestionCard.tsx'
 const List2: FC = () => {
   const [questionList, setQuestionList] = useState([
@@ -11,26 +13,46 @@ const List2: FC = () => {
 
   const onAdd = () => {
     const r = Math.random().toString().slice(-3)
-    setQuestionList([...questionList, { id: `q${r}`, title: `问卷${r}`, isPublished: false }])
+    setQuestionList(
+      produce(draft => {
+        draft.push({ id: `q${r}`, title: `问卷${r}`, isPublished: false })
+      })
+    )
+    // setQuestionList([...questionList, { id: `q${r}`, title: `问卷${r}`, isPublished: false }])
   }
 
   const onDelete = (id: string) => {
-    const newQuestionList = questionList.filter(question => question.id !== id)
-    setQuestionList(newQuestionList)
+    setQuestionList(
+      produce(draft => {
+        draft.splice(
+          draft.findIndex(q => q.id === id),
+          1
+        )
+      })
+    )
   }
 
   const onPublish = (id: string) => {
     setQuestionList(
-      // 修改 map
-      questionList.map(q => {
-        if (q.id !== id) return q
-
-        return {
-          ...q,
-          isPublished: true,
+      // 修改 find
+      produce(draft => {
+        const q = draft.find(q => q.id === id)
+        if (q) {
+          q.isPublished = true
         }
       })
     )
+    // setQuestionList(
+    //   // 修改 map
+    //   questionList.map(q => {
+    //     if (q.id !== id) return q
+
+    //     return {
+    //       ...q,
+    //       isPublished: true,
+    //     }
+    //   })
+    // )
   }
 
   return (
