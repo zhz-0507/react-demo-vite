@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import './QuestionCard.css'
 
 type PropsType = {
@@ -20,6 +20,16 @@ const QuestionCard: FC<PropsType> = props => {
   const del = (id: string) => {
     onDelete && onDelete(id)
   }
+
+  // 副作用，简单理解就是产生一些其他的行为，就是组件的生命周期
+  // 会执行两次
+  // 第一次创建 销毁走完组件所有生命周期，第二次在创建，提前检查问题
+  useEffect(() => {
+    console.log('挂载')
+    return () => {
+      console.log('卸载', id)
+    }
+  }, [])
 
   return (
     <div key={id} className="list-item">

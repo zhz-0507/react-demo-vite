@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 
 import { produce } from 'immer'
 
@@ -10,6 +10,16 @@ const List2: FC = () => {
     { id: 'q3', title: '问卷3', isPublished: false },
     { id: 'q4', title: '问卷4', isPublished: true },
   ])
+
+  // 没有依赖项
+  useEffect(() => {
+    console.log('初始化')
+  }, [])
+
+  // 有依赖项
+  useEffect(() => {
+    console.log('questionList更改')
+  }, [questionList])
 
   const onAdd = () => {
     const r = Math.random().toString().slice(-3)
