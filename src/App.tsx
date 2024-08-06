@@ -8,7 +8,11 @@ import UseRef from './test/useRef'
 import UseMemo from './test/useMemo'
 import UseCallback from './test/useCallback'
 
+// 自定义hooks
+import useTitle from './hooks/useTitle'
+
 function App() {
+  useTitle('zhz')
   return (
     <>
       {/* 问卷列表 */}
