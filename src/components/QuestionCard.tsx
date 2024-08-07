@@ -1,6 +1,8 @@
 import { FC, useEffect } from 'react'
 import './QuestionCard.css'
 
+import classNames from 'classnames'
+
 type PropsType = {
   id: string
   title: string
@@ -31,8 +33,13 @@ const QuestionCard: FC<PropsType> = props => {
     }
   }, [])
 
+  const itemClass = classNames({
+    'list-item': true,
+    published: isPublished,
+  })
+
   return (
-    <div key={id} className="list-item">
+    <div key={id} className={itemClass}>
       <strong>{title}</strong>
       &nbsp;
       {/* 条件判断 */}
